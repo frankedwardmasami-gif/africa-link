@@ -6,6 +6,6 @@ class StorageService {
     final path = '$userId/avatar';
     await SupabaseService.client.storage.from('avatars').uploadBinary(
       path, bytes, fileOptions: const FileOptions(upsert: true));
-    return SupabaseService.client.storage.from('avatars').getPublicUrl(path);
+    return await SupabaseService.client.storage.from('avatars').createSignedUrl(path, 3600);
   }
 }
